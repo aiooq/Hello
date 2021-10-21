@@ -48,17 +48,33 @@ def ForTask1(value,out):
     m_var_1 = value
     return None
 
+def ForTask2(value,out):
+    def GetCorrect(value):
+        if value<10:
+            value=str('0'+str(value))
+        else:
+            value=str(value)
+        return value
+
+    h=GetCorrect(value//3600)
+    m=GetCorrect((value//60)%60)
+    s=GetCorrect(value%60)
+    return out.format(h,m,s)
+
+def ForTask3(value,out):
+    formula = "{0} + {0}{0} + {0}{0}{0}".format(abs(value))
+    return out.format(eval(formula))
+
 tasks = list()
 tasks.append((  {"in":"Введите целое число: ", "def":ForTask1, "type":int}, 
                 {"in":"Введите дробное число: ", "def":ForTask1, "type":float},
                 {"in":"Введите строку: ", "def":ForTask1, "type":str},
                 {"in":"Введите ещё строку: ", "out":" Вы ввели: {0}, {1}, {2}, {3}", "def":ForTask1, "type":str}))
 
-#tasks.append(({"in":"Введите время в секундах: ", "out":"hello 4", "def":ForTask2, "type":int}))
-#question_3 = ("Введите число n для формулы n + nn + nnn: ")
-'''question_4 = ("Введите число: ", "Введите ещё число: ", "Введите текст: ")
-question_5 = ("Введите число: ", "Введите ещё число: ", "Введите текст: ")
-question_6 = ("Введите число: ", "Введите ещё число: ", "Введите текст: ")'''
+tasks.append(({"in":"Введите время в секундах: ", "out":"Результат в формате времени чч:мм:сс = {0}:{1}:{2}", "def":ForTask2, "type":int}))
+tasks.append(({"in":"Введите число n для формулы n + nn + nnn: ", "out":"Результат = {0}", "def":ForTask3, "type":int}))
+
+
 
 def main(tuple):
     i=0
