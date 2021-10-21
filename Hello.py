@@ -15,10 +15,6 @@
 6-й день: 3,22
 Ответ: на 6-й день спортсмен достиг результата — не менее 3 км.'''
 
-one = 'one'
-two = 'two'
-three = 'three'
-
 m_var_1 = None
 m_var_2 = None
 m_var_3 = None
@@ -65,6 +61,21 @@ def ForTask3(value,out):
     formula = "{0} + {0}{0} + {0}{0}{0}".format(abs(value))
     return out.format(eval(formula))
 
+def ForTask4(value,out):
+    if value<0:
+        raise Exception("PositiveNumber")
+    elif value==0:
+        return out.format(0)
+
+    value=str(value)
+    i=0
+    value_max=0
+    while len(value)>i:
+        if value_max<=int(value[i]):
+            value_max=int(value[i])
+        i+=1
+    return out.format(value_max)
+
 tasks = list()
 tasks.append((  {"in":"Введите целое число: ", "def":ForTask1, "type":int}, 
                 {"in":"Введите дробное число: ", "def":ForTask1, "type":float},
@@ -73,7 +84,7 @@ tasks.append((  {"in":"Введите целое число: ", "def":ForTask1, 
 
 tasks.append(({"in":"Введите время в секундах: ", "out":"Результат в формате времени чч:мм:сс = {0}:{1}:{2}", "def":ForTask2, "type":int}))
 tasks.append(({"in":"Введите число n для формулы n + nn + nnn: ", "out":"Результат = {0}", "def":ForTask3, "type":int}))
-
+tasks.append(({"in":"Введите целое положительное число: ", "out":"Самую большая цифра в числе = {0}", "def":ForTask4, "type":int}))
 
 
 def main(tuple):
@@ -110,12 +121,20 @@ def main(tuple):
             value = tuple[i]["def"](value,out)
             if value != None:
                 print(value)
-        except:
+        except Exception as e:
+            
+            if e.args[0]=="PositiveNumber":
+                i-=1
+                print("Некорректное значение, ожидается положительное число, пожалуйста повторите ввод!")
             continue
         finally:
             i+=1
 
 while True:
+    one = 'one'
+    two = 'two'
+    three = 'three'
+
     print(three)
     print(two)
     print(one)
